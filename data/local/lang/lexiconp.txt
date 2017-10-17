@@ -1,0 +1,5 @@
+<sil>	1.0	SIL
+a	1.0	a
+y	1.0	y
+l	1.0	l
+space	1.0	space

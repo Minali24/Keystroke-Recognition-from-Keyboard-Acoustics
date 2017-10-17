@@ -1,0 +1,13 @@
+
+\data\
+ngram 1=6
+
+\1-grams:
+-1	a
+-1	y
+-1	l
+-1	space
+-99 <s>
+-1 </s>
+
+\end\

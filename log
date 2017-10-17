@@ -1,0 +1,57 @@
+Preparing train and test data
+Dictionary preparation succeeded
+utils/prepare_lang.sh --position-dependent-phones false data/local/dict <SIL> data/local/lang data/lang
+Checking data/local/dict/silence_phones.txt ...
+--> reading data/local/dict/silence_phones.txt
+--> data/local/dict/silence_phones.txt is OK
+
+Checking data/local/dict/optional_silence.txt ...
+--> reading data/local/dict/optional_silence.txt
+--> data/local/dict/optional_silence.txt is OK
+
+Checking data/local/dict/nonsilence_phones.txt ...
+--> reading data/local/dict/nonsilence_phones.txt
+--> ERROR: empty line in data/local/dict/nonsilence_phones.txt (line 18)
+--> ERROR: empty line in data/local/dict/nonsilence_phones.txt (line 19)
+--> ERROR: empty line in data/local/dict/nonsilence_phones.txt (line 20)
+
+Checking disjoint: silence_phones.txt, nonsilence_phones.txt
+--> disjoint property is OK.
+
+Checking data/local/dict/lexicon.txt
+--> reading data/local/dict/lexicon.txt
+--> data/local/dict/lexicon.txt is OK
+
+Checking data/local/dict/extra_questions.txt ...
+--> data/local/dict/extra_questions.txt is empty (this is OK)
+--> ERROR validating dictionary directory data/local/dict (see detailed error messages above)
+
+*Error validating directory data/local/dict*
+Preparing language models for test
+Succeeded in formatting data.
+steps/make_mfcc.sh --nj 1 data/train_yesno exp/make_mfcc/train_yesno mfcc
+utils/validate_data_dir.sh: WARNING: you have only one speaker.  This probably a bad idea.
+   Search for the word 'bold' in http://kaldi-asr.org/doc/data_prep.html
+   for more information.
+utils/validate_data_dir.sh: file data/train_yesno/utt2spk is not in sorted order or has duplicates
+steps/compute_cmvn_stats.sh data/train_yesno exp/make_mfcc/train_yesno mfcc
+make_cmvn.sh: no such file data/train_yesno/feats.scp
+utils/fix_data_dir.sh: file data/train_yesno/utt2spk is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file data/train_yesno/text is not in sorted order or not unique, sorting it
+utils/fix_data_dir.sh: file data/train_yesno/wav.scp is not in sorted order or not unique, sorting it
+fix_data_dir.sh: kept all 2515 utterances.
+fix_data_dir.sh: old files are kept in data/train_yesno/.backup
+steps/make_mfcc.sh --nj 1 data/test_yesno exp/make_mfcc/test_yesno mfcc
+utils/validate_data_dir.sh: WARNING: you have only one speaker.  This probably a bad idea.
+   Search for the word 'bold' in http://kaldi-asr.org/doc/data_prep.html
+   for more information.
+utils/validate_data_dir.sh: Successfully validated data-directory data/test_yesno
+steps/make_mfcc.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+steps/compute_cmvn_stats.sh data/test_yesno exp/make_mfcc/test_yesno mfcc
+make_cmvn.sh: no such file data/test_yesno/feats.scp
+fix_data_dir.sh: kept all 2516 utterances.
+fix_data_dir.sh: old files are kept in data/test_yesno/.backup
+steps/train_mono.sh --nj 1 --cmd utils/run.pl --totgauss 400 data/train_yesno data/lang exp/mono0a
+mkgraph.sh: expected data/lang_test_tg/L.fst to exist
+steps/decode.sh --nj 1 --cmd utils/run.pl exp/mono0a/graph_tgpr data/test_yesno exp/mono0a/decode_test_yesno
+decode.sh: no such file data/test_yesno/split1/1/feats.scp

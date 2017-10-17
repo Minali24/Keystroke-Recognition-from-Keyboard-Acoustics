@@ -1,0 +1,6 @@
+<eps> <eps> SIL
+<sil> <sil> SIL
+a a a
+l l l
+space space space
+y y y

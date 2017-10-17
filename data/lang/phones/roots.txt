@@ -1,0 +1,5 @@
+shared split SIL
+shared split a
+shared split y
+shared split l
+shared split space
